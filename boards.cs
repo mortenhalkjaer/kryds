@@ -13,6 +13,7 @@ namespace kryds {
             { {0,1,2}, {3,4,5}, {6,7,8},
               {0,3,6}, {1,4,7}, {2,5,8},
               {0,4,8}, {2,4,6} };
+        public List<int> moves = new List<int>();
 
         public List<int> getMoves(int player) {
             List<int> result = new List<int>();
@@ -26,12 +27,18 @@ namespace kryds {
 
         public void move(int player, int field) {
             board[field] = player == 2 ? -1 : 1;
+            moves.Add(field);
+        }
+
+        public int getPlayerAt(int field) {
+            return board[field] == -1 ? 2 : board[field];
         }
 
         public void clear() {
             for (int n=0; n<9; n++) {
                 board[n] = 0;
             }
+            moves.Clear();
         }
 
         public GameState GetState() {
@@ -40,7 +47,6 @@ namespace kryds {
                 for (int k=0; k<3; k++) {
                     sum += board[winCondition[n,k]];
                 }
-//                Console.WriteLine(n.ToString() + " " + sum.ToString());
                 if (sum == -3) return GameState.Player2Won;
                 if (sum == 3) return GameState.Player1Won;
             }

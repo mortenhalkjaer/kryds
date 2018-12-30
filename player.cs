@@ -11,8 +11,6 @@ namespace kryds {
             
             int f = ran.Next() % moves.Count;
             board.move(player, moves[f]);
-
-
         }
 
         public Player(int number) {
